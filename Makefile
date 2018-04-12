@@ -1,32 +1,11 @@
-################################################################################
-#      This file is part of OpenELEC - http://www.openelec.tv
-#      Copyright (C) 2009-2013 Stephan Raue (stephan@openelec.tv)
-#      Copyright (C) 2013 Lutz Fiebach (lufie@openelec.tv)
-#
-#  This program is dual-licensed; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation; either version 2 of the License, or
-#  (at your option) any later version.
-#
-#  This Program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-#  GNU General Public License for more details.
-#
-#  You should have received a copy of the GNU General Public License
-#  along with OpenELEC; see the file COPYING.  If not, see
-#  <http://www.gnu.org/licenses/>.
-#
-#  Alternatively, you can license this library under a commercial license,
-#  please contact OpenELEC Licensing for more information.
-#
-#  For more information contact:
-#  OpenELEC Licensing  <license@openelec.tv>  http://www.openelec.tv
-################################################################################
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Copyright (C) 2018-present CoreELEC (https://coreelec.org)
+# Copyright (C) 2009-2013 Stephan Raue (stephan@openelec.tv)
+# Copyright (C) 2013 Lutz Fiebach (lufie@openelec.tv)
 
-ADDON_NAME=service.libreelec.settings
+ADDON_NAME=service.coreelec.settings
 ADDON_VERSION=9.0.0
-DISTRONAME:=LibreELEC
+DISTRONAME:=CoreELEC
 
 SHELL=/bin/bash
 BUILDDIR=build
@@ -52,7 +31,6 @@ uninstall:
 $(BUILDDIR)/$(ADDON_NAME): $(BUILDDIR)/$(ADDON_NAME)/resources
 	mkdir -p $(BUILDDIR)/$(ADDON_NAME)
 	cp -R src/*.py $(BUILDDIR)/$(ADDON_NAME)
-	cp COPYING $(BUILDDIR)/$(ADDON_NAME)
 	cp addon.xml $(BUILDDIR)/$(ADDON_NAME)
 	sed -e "s,@ADDONNAME@,$(ADDON_NAME),g" \
 	    -e "s,@ADDONVERSION@,$(ADDON_VERSION),g" \
@@ -72,7 +50,7 @@ $(BUILDDIR)/$(ADDON_NAME)/resources/skins: $(BUILDDIR)/$(ADDON_NAME)/resources/s
 
 $(BUILDDIR)/$(ADDON_NAME)/resources/skins/Default/media/default:
 	mkdir -p $(BUILDDIR)/$(ADDON_NAME)/resources/skins/Default/media/default
-	cp textures/$(DISTRONAME)/*.{png,jpg} $(BUILDDIR)/$(ADDON_NAME)/resources/skins/Default/media/default
+	cp textures/CoreELEC/*.{png,jpg} $(BUILDDIR)/$(ADDON_NAME)/resources/skins/Default/media/default
 
 $(BUILDDIR)/$(ADDON_NAME)/resources/skins/Default/media/icons:
 	mkdir -p $(BUILDDIR)/$(ADDON_NAME)/resources/skins/Default/media/icons

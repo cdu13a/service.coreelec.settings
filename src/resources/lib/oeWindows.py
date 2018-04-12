@@ -1,29 +1,7 @@
-################################################################################
-#      This file is part of OpenELEC - http://www.openelec.tv
-#      Copyright (C) 2009-2013 Stephan Raue (stephan@openelec.tv)
-#      Copyright (C) 2013 Lutz Fiebach (lufie@openelec.tv)
-#
-#  This program is dual-licensed; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation; either version 2 of the License, or
-#  (at your option) any later version.
-#
-#  This Program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-#  GNU General Public License for more details.
-#
-#  You should have received a copy of the GNU General Public License
-#  along with OpenELEC; see the file COPYING.  If not, see
-#  <http://www.gnu.org/licenses/>.
-#
-#  Alternatively, you can license this library under a commercial license,
-#  please contact OpenELEC Licensing for more information.
-#
-#  For more information contact:
-#  OpenELEC Licensing  <license@openelec.tv>  http://www.openelec.tv
-################################################################################
-# -*- coding: utf-8 -*-
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Copyright (C) 2018-present CoreELEC (https://coreelec.org)
+# Copyright (C) 2009-2013 Stephan Raue (stephan@openelec.tv)
+# Copyright (C) 2013 Lutz Fiebach (lufie@openelec.tv)
 
 import xbmc
 import xbmcgui
@@ -303,17 +281,17 @@ class mainWindow(xbmcgui.WindowXMLDialog):
                         selectedItem.setProperty('value', xbmcKeyboard.getText())
                 elif strTyp == 'file':
                     xbmcDialog = xbmcgui.Dialog()
-                    returnValue = xbmcDialog.browse(1, 'LibreELEC.tv', 'files', '', False, False, '/')
+                    returnValue = xbmcDialog.browse(1, 'CoreELEC', 'files', '', False, False, '/')
                     if returnValue != '' and returnValue != '/':
                         selectedItem.setProperty('value', unicode(returnValue))
                 elif strTyp == 'folder':
                     xbmcDialog = xbmcgui.Dialog()
-                    returnValue = xbmcDialog.browse(0, 'LibreELEC.tv', 'files', '', False, False, '/storage')
+                    returnValue = xbmcDialog.browse(0, 'CoreELEC', 'files', '', False, False, '/storage')
                     if returnValue != '' and returnValue != '/':
                         selectedItem.setProperty('value', unicode(returnValue))
                 elif strTyp == 'ip':
                     xbmcDialog = xbmcgui.Dialog()
-                    returnValue = xbmcDialog.numeric(3, 'LibreELEC.tv', strValue)
+                    returnValue = xbmcDialog.numeric(3, 'CoreELEC', strValue)
                     if returnValue != '':
                         if returnValue == '0.0.0.0':
                             selectedItem.setProperty('value', '')
@@ -323,7 +301,7 @@ class mainWindow(xbmcgui.WindowXMLDialog):
                     if strValue == 'None' or strValue == '':
                         strValue = '0'
                     xbmcDialog = xbmcgui.Dialog()
-                    returnValue = xbmcDialog.numeric(0, 'LibreELEC.tv', strValue)
+                    returnValue = xbmcDialog.numeric(0, 'CoreELEC', strValue)
                     if returnValue == '':
                         returnValue = -1
                     if returnValue > -1:
@@ -640,7 +618,7 @@ class wizard(xbmcgui.WindowXMLDialog):
                             break
                 if self.is_last_wizard == True:
                     xbmc.executebuiltin('UpdateAddonRepos')
-                    self.oe.write_setting('libreelec', 'wizard_completed', 'True')
+                    self.oe.write_setting('coreelec', 'wizard_completed', 'True')
                     self.close()
             self.oe.dbg_log('wizard::onClick(' + unicode(controlID) + ')', 'exit_function', 0)
         except Exception, e:

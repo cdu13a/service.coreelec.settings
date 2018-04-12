@@ -1,7 +1,7 @@
 # Kodi Media Center language file
 # Addon Name: @DISTRONAME@ Configuration
-# Addon id: service.libreelec.settings
-# Addon Provider: LibreELEC
+# Addon id: service.coreelec.settings
+# Addon Provider: CoreELEC
 msgid ""
 msgstr ""
 "MIME-Version: 1.0\n"
@@ -45,11 +45,11 @@ msgid "Architecture: "
 msgstr ""
 
 msgctxt "#609"
-msgid "LibreELEC is a minimal Linux distribution purpose built for Kodi media center. LibreELEC is designed to boot fast with an installation process simple enough for anyone to convert a bare HTPC into a fully configured media machine in under 15 minutes."
+msgid "CoreELEC is a minimal Linux distribution purpose built for Kodi media center. CoreELEC is designed to boot fast with an installation process simple enough for anyone to convert a bare HTPC into a fully configured media machine in under 15 minutes."
 msgstr ""
 
 msgctxt "#610"
-msgid "[B]Support:[/B][CR]Web: http://libreelec.tv[CR]Forum: http://forum.libreelec.tv/[CR]Wiki: http://wiki.libreelec.tv[CR][CR][B]Social Media:[/B][CR]IRC: #libreelec on freenode.net (web-based chat is also available from the website)[CR]Twitter: https://twitter.com/libreelec[CR]Facebook: http://www.facebook.com/LibreELEC"
+msgid ""
 msgstr ""
 
 msgctxt "#700"
@@ -73,7 +73,7 @@ msgid "Configure and pair Bluetooth devices"
 msgstr ""
 
 msgctxt "#705"
-msgid "Useful information like version and architecture details, support and social media links, and how to make a donation to the project"
+msgid "Useful information like version and architecture details"
 msgstr ""
 
 msgctxt "#710"
@@ -649,7 +649,7 @@ msgid "Thank you"
 msgstr ""
 
 msgctxt "#32318"
-msgid "Your @DISTRONAME@ installation is now complete and you'll now enter Kodi when you can set up your media libraries. For help with this, there is a guide available at wiki.kodi.tv[CR][CR]@DISTRONAME@ is developed by a dedicated team of developers who work purely in their spare time. Even as a volunteer project, we still have to pay for our internet bandwidth and development resources so if you find @DISTRONAME@ useful, we will always appreciate a donation of any amount.[CR][CR]Finally, we hope you enjoy using @DISTRONAME@ as much as we've enjoying building it. If you need any more help, you can find links to get help along with latest news at our website"
+msgid "Your @DISTRONAME@ installation is now complete and you'll now enter Kodi when you can set up your media libraries. For help with this, there is a guide available at wiki.kodi.tv.[CR][CR]Finally, we hope you enjoy using @DISTRONAME@ as much as we've enjoying building it. If you need any more help, you can find links to get help along with latest news at our website."
 msgstr ""
 
 msgctxt "#32319"
@@ -845,7 +845,7 @@ msgid "** SAFE MODE! ** SAFE MODE! ** SAFE MODE! **"
 msgstr ""
 
 msgctxt "#32394"
-msgid "@DISTRONAME@ has temporarily started in safe mode due to repeated Kodi crashes.[CR][CR]You may now investigate the cause of the crashes by enabling ssh or Samba.[CR][CR]Your original Kodi installation can be accessed via \"/storage/.kodi.FAILED\" and the Samba \"Kodi-Failed\" share.[CR][CR]Rebooting will return to your original Kodi installation.[CR][CR]Go to https://forum.libreelec.tv if you require further assistance. When posting to the forum include the link to your crash log which can be viewed by clicking the crash log option in Settings > LibreELEC > System > Submit Log."
+msgid "@DISTRONAME@ has temporarily started in safe mode due to repeated Kodi crashes.[CR][CR]You may now investigate the cause of the crashes by enabling ssh or Samba.[CR][CR]Your original Kodi installation can be accessed via \"/storage/.kodi.FAILED\" and the Samba \"Kodi-Failed\" share.[CR][CR]Rebooting will return to your original Kodi installation.[CR][CR]When posting to the forum include the link to your crash log which can be viewed by clicking the crash log option in Settings > CoreELEC > System > Submit Log."
 msgstr ""
 
 msgctxt "#32395"

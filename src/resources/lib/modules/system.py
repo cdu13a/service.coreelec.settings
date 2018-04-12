@@ -1,29 +1,7 @@
-################################################################################
-#      This file is part of OpenELEC - http://www.openelec.tv
-#      Copyright (C) 2009-2013 Stephan Raue (stephan@openelec.tv)
-#      Copyright (C) 2013 Lutz Fiebach (lufie@openelec.tv)
-#
-#  This program is dual-licensed; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation; either version 2 of the License, or
-#  (at your option) any later version.
-#
-#  This Program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-#  GNU General Public License for more details.
-#
-#  You should have received a copy of the GNU General Public License
-#  along with OpenELEC; see the file COPYING.  If not, see
-#  <http://www.gnu.org/licenses/>.
-#
-#  Alternatively, you can license this library under a commercial license,
-#  please contact OpenELEC Licensing for more information.
-#
-#  For more information contact:
-#  OpenELEC Licensing  <license@openelec.tv>  http://www.openelec.tv
-################################################################################
-# -*- coding: utf-8 -*-
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Copyright (C) 2018-present CoreELEC (https://coreelec.org)
+# Copyright (C) 2009-2013 Stephan Raue (stephan@openelec.tv)
+# Copyright (C) 2013 Lutz Fiebach (lufie@openelec.tv)
 
 import os
 import re
@@ -48,7 +26,7 @@ class system:
     UPDATE_DOWNLOAD_URL = None
     LOCAL_UPDATE_DIR = None
     XBMC_RESET_FILE = None
-    LIBREELEC_RESET_FILE = None
+    COREELEC_RESET_FILE = None
     KEYBOARD_INFO = None
     UDEV_KEYBOARD_INFO = None
     NOX_KEYBOARD_INFO = None
@@ -708,7 +686,7 @@ class system:
             if listItem.getProperty('entry') != 'ShowCustomChannels':
                 if self.get_json(listItem.getProperty('value')) is None:
                     xbmcDialog = xbmcgui.Dialog()
-                    xbmcDialog.ok('LibreELEC Update', self.oe._(32191).encode('utf-8'))
+                    xbmcDialog.ok('CoreELEC Update', self.oe._(32191).encode('utf-8'))
                     xbmcDialog = None
                     del xbmcDialog
             self.update_json = self.build_json()
@@ -749,7 +727,7 @@ class system:
             if self.struct['update']['settings']['Build']['value'] != '':
                 self.update_file = self.update_json[self.struct['update']['settings']['Channel']['value']]['url'] + self.get_available_builds(self.struct['update']['settings']['Build']['value'])
                 xbmcDialog = xbmcgui.Dialog()
-                answer = xbmcDialog.yesno('LibreELEC Update', self.oe._(32188).encode('utf-8') + ':  ' + version.encode('utf-8'),
+                answer = xbmcDialog.yesno('CoreELEC Update', self.oe._(32188).encode('utf-8') + ':  ' + version.encode('utf-8'),
                                       self.oe._(32187).encode('utf-8') + ':  ' + self.struct['update']['settings']['Build']['value'].encode('utf-8'),
                                       self.oe._(32180).encode('utf-8'))
                 xbmcDialog = None
@@ -920,7 +898,7 @@ class system:
             self.oe.dbg_log('system::reset_oe', 'enter_function', 0)
             if self.ask_sure_reset('Hard') == 1:
                 self.oe.set_busy(1)
-                reset_file = open(self.LIBREELEC_RESET_FILE, 'w')
+                reset_file = open(self.COREELEC_RESET_FILE, 'w')
                 reset_file.write('reset')
                 reset_file.close()
                 self.oe.winOeMain.close()
@@ -984,7 +962,7 @@ class system:
                     pass
                     
                 self.backup_dlg = xbmcgui.DialogProgress()
-                self.backup_dlg.create('LibreELEC', self.oe._(32375).encode('utf-8'), ' ', ' ')
+                self.backup_dlg.create('CoreELEC', self.oe._(32375).encode('utf-8'), ' ', ' ')
                 if not os.path.exists(self.BACKUP_DESTINATION):
                     os.makedirs(self.BACKUP_DESTINATION)
                 self.backup_file = self.oe.timestamp() + '.tar'

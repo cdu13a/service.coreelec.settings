@@ -1,30 +1,7 @@
-################################################################################
-#      This file is part of OpenELEC - http://www.openelec.tv
-#      Copyright (C) 2009-2013 Stephan Raue (stephan@openelec.tv)
-#      Copyright (C) 2013 Lutz Fiebach (lufie@openelec.tv)
-#
-#  This program is dual-licensed; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation; either version 2 of the License, or
-#  (at your option) any later version.
-#
-#  This Program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-#  GNU General Public License for more details.
-#
-#  You should have received a copy of the GNU General Public License
-#  along with OpenELEC; see the file COPYING.  If not, see
-#  <http://www.gnu.org/licenses/>.
-#
-#  Alternatively, you can license this library under a commercial license,
-#  please contact OpenELEC Licensing for more information.
-#
-#  For more information contact:
-#  OpenELEC Licensing  <license@openelec.tv>  http://www.openelec.tv
-################################################################################
-# -*- coding: utf-8 -*-
-################################# variables ##################################
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Copyright (C) 2018-present CoreELEC (https://coreelec.org)
+# Copyright (C) 2009-2013 Stephan Raue (stephan@openelec.tv)
+# Copyright (C) 2013 Lutz Fiebach (lufie@openelec.tv)
 
 import xbmc
 import xbmcaddon
@@ -45,8 +22,8 @@ import shutil
 
 from xml.dom import minidom
 
-__author__ = 'LibreELEC'
-__scriptid__ = 'service.libreelec.settings'
+__author__ = 'CoreELEC'
+__scriptid__ = 'service.coreelec.settings'
 __addon__ = xbmcaddon.Addon(id=__scriptid__)
 __cwd__ = __addon__.getAddonInfo('path')
 __oe__ = sys.modules[globals()['__name__']]
@@ -100,7 +77,7 @@ sys.setdefaultencoding(encoding)
 ## load oeSettings modules
 
 import oeWindows
-xbmc.log('## LibreELEC Addon ## ' + unicode(__addon__.getAddonInfo('version')))
+xbmc.log('## CoreELEC Addon ## ' + unicode(__addon__.getAddonInfo('version')))
 
 
 def _(code):
@@ -110,7 +87,7 @@ def _(code):
 def dbg_log(source, text, level=4):
     if level == 0 and os.environ.get('DEBUG', 'no') == 'no':
         return
-    xbmc.log('## LibreELEC Addon ## ' + source + ' ## ' + text, level)
+    xbmc.log('## CoreELEC Addon ## ' + source + ' ## ' + text, level)
     if level == 4:
         xbmc.log(traceback.format_exc(), level)
 
@@ -282,7 +259,7 @@ def download_file(source, destination, silent=False):
         local_file = open(destination, 'wb')
         if silent == False:
             download_dlg = xbmcgui.DialogProgress()
-            download_dlg.create('LibreELEC', _(32181).encode('utf-8'), ' ', ' ')
+            download_dlg.create('CoreELEC', _(32181).encode('utf-8'), ' ', ' ')
         response = urllib2.urlopen(urllib2.quote(source, safe=':/'))
         total_size = int(response.info().getheader('Content-Length').strip())
         minutes = 0
@@ -331,7 +308,7 @@ def extract_file(filename, extract, destination, silent=False):
         if tarfile.is_tarfile(filename):
             if silent == False:
                 extract_dlg = xbmcgui.DialogProgress()
-                extract_dlg.create('LibreELEC ', _(32186).encode('utf-8'), ' ', ' ')
+                extract_dlg.create('CoreELEC ', _(32186).encode('utf-8'), ' ', ' ')
                 extract_dlg.update(0)
             compressed = tarfile.open(filename)
             names = compressed.getnames()
@@ -395,7 +372,7 @@ def copy_file(source, destination, silent=False):
         destination_file = open(destination, 'wb')
         if silent == False:
             copy_dlg = xbmcgui.DialogProgress()
-            copy_dlg.create('LibreELEC', _(32181).encode('utf-8'), ' ', ' ')
+            copy_dlg.create('CoreELEC', _(32181).encode('utf-8'), ' ', ' ')
         total_size = os.path.getsize(source)
         minutes = 0
         seconds = 0
@@ -473,7 +450,7 @@ def stop_service():
         for strModule in dictModules:
             if hasattr(dictModules[strModule], 'stop_service'):
                 dictModules[strModule].stop_service()
-        xbmc.log('## LibreELEC Addon ## STOP SERVICE DONE !')
+        xbmc.log('## CoreELEC Addon ## STOP SERVICE DONE !')
     except Exception, e:
         dbg_log('oe::stop_service', 'ERROR: (' + repr(e) + ')')
 
@@ -481,9 +458,9 @@ def stop_service():
 def openWizard():
     global winOeMain, __cwd__, __oe__
     try:
-        winOeMain = oeWindows.wizard('service-LibreELEC-Settings-wizard.xml', __cwd__, 'Default', oeMain=__oe__)
+        winOeMain = oeWindows.wizard('service-CoreELEC-Settings-wizard.xml', __cwd__, 'Default', oeMain=__oe__)
         winOeMain.doModal()
-        winOeMain = oeWindows.mainWindow('service-LibreELEC-Settings-mainWindow.xml', __cwd__, 'Default', oeMain=__oe__)  # None
+        winOeMain = oeWindows.mainWindow('service-CoreELEC-Settings-mainWindow.xml', __cwd__, 'Default', oeMain=__oe__)  # None
     except Exception, e:
         dbg_log('oe::openWizard', 'ERROR: (' + repr(e) + ')')
 
@@ -491,7 +468,7 @@ def openWizard():
 def openConfigurationWindow():
     global winOeMain, __cwd__, __oe__, dictModules
     try:
-        winOeMain = oeWindows.mainWindow('service-LibreELEC-Settings-mainWindow.xml', __cwd__, 'Default', oeMain=__oe__)
+        winOeMain = oeWindows.mainWindow('service-CoreELEC-Settings-mainWindow.xml', __cwd__, 'Default', oeMain=__oe__)
         winOeMain.doModal()
         for strModule in dictModules:
             dictModules[strModule].exit()
@@ -522,7 +499,7 @@ def load_config():
             config_text = ''
         if config_text == '':
             xml_conf = minidom.Document()
-            xml_main = xml_conf.createElement('libreelec')
+            xml_main = xml_conf.createElement('coreelec')
             xml_conf.appendChild(xml_main)
             xml_sub = xml_conf.createElement('addon_config')
             xml_main.appendChild(xml_sub)
@@ -614,7 +591,7 @@ def write_setting(module, setting, value, main_node='settings'):
         xml_conf = load_config()
         xml_settings = xml_conf.getElementsByTagName(main_node)
         if len(xml_settings) == 0:
-            for xml_main in xml_conf.getElementsByTagName('libreelec'):
+            for xml_main in xml_conf.getElementsByTagName('coreelec'):
                 xml_sub = xml_conf.createElement(main_node)
                 xml_main.appendChild(xml_sub)
                 xml_settings = xml_conf.getElementsByTagName(main_node)
@@ -646,7 +623,7 @@ def write_setting(module, setting, value, main_node='settings'):
 
 def load_modules():
 
-  # # load libreelec configuration modules
+  # # load coreelec configuration modules
 
     try:
         global dictModules, __oe__, __cwd__, init_done
@@ -688,7 +665,7 @@ def split_dialog_text(text):
 
 def reboot_counter(seconds=10, title=' '):
     reboot_dlg = xbmcgui.DialogProgress()
-    reboot_dlg.create('LibreELEC %s' % title, ' ', ' ', ' ')
+    reboot_dlg.create('CoreELEC %s' % title, ' ', ' ', ' ')
     reboot_dlg.update(0)
     wait_time = seconds
     while seconds >= 0 and not reboot_dlg.iscanceled():
@@ -773,10 +750,12 @@ def get_os_release():
             version = os_release_info['VERSION_ID']
         if 'VERSION' in os_release_info:
             version = os_release_info['VERSION']
-        if 'LIBREELEC_ARCH' in os_release_info:
-            architecture = os_release_info['LIBREELEC_ARCH']
-        if 'LIBREELEC_BUILD' in os_release_info:
-            build = os_release_info['LIBREELEC_BUILD']
+        if 'COREELEC_ARCH' in os_release_info:
+            architecture = os_release_info['COREELEC_ARCH']
+        if 'COREELEC_BUILD' in os_release_info:
+            build = os_release_info['COREELEC_BUILD']
+        if 'COREELEC_PROJECT' in os_release_info:
+            project = os_release_info['COREELEC_PROJECT']
         if 'BUILDER_NAME' in os_release_info:
             builder_name = os_release_info['BUILDER_NAME']
         if 'BUILDER_VERSION' in os_release_info:
@@ -786,6 +765,7 @@ def get_os_release():
             version,
             architecture,
             build,
+            project,
             builder_name,
             builder_version
             )
@@ -802,14 +782,15 @@ DISTRIBUTION = os_release_data[0]
 VERSION = os_release_data[1]
 ARCHITECTURE = os_release_data[2]
 BUILD = os_release_data[3]
-BUILDER_NAME = os_release_data[4]
-BUILDER_VERSION = os_release_data[5]
+PROJECT = os_release_data[4]
+BUILDER_NAME = os_release_data[5]
+BUILDER_VERSION = os_release_data[6]
 DOWNLOAD_DIR = '/storage/downloads'
 XBMC_USER_HOME = os.environ.get('XBMC_USER_HOME', '/storage/.kodi')
 CONFIG_CACHE = os.environ.get('CONFIG_CACHE', '/storage/.cache')
 USER_CONFIG = os.environ.get('USER_CONFIG', '/storage/.config')
 TEMP = '%s/temp/' % XBMC_USER_HOME
-winOeMain = oeWindows.mainWindow('service-LibreELEC-Settings-mainWindow.xml', __cwd__, 'Default', oeMain=__oe__)
+winOeMain = oeWindows.mainWindow('service-CoreELEC-Settings-mainWindow.xml', __cwd__, 'Default', oeMain=__oe__)
 if os.path.exists('/etc/machine-id'):
     SYSTEMID = load_file('/etc/machine-id')
 else:
@@ -820,20 +801,20 @@ BOOT_STATUS = load_file('/storage/.config/boot.status')
 ############################################################################################
 
 try:
-    configFile = '%s/userdata/addon_data/service.libreelec.settings/oe_settings.xml' % XBMC_USER_HOME
-    if not os.path.exists('%s/userdata/addon_data/service.libreelec.settings' % XBMC_USER_HOME):
-        if os.path.exists('%s/userdata/addon_data/service.openelec.settings' % XBMC_USER_HOME):
-            shutil.copytree(('%s/userdata/addon_data/service.openelec.settings' % XBMC_USER_HOME),
-                    ('%s/userdata/addon_data/service.libreelec.settings' % XBMC_USER_HOME))
+    configFile = '%s/userdata/addon_data/service.coreelec.settings/oe_settings.xml' % XBMC_USER_HOME
+    if not os.path.exists('%s/userdata/addon_data/service.coreelec.settings' % XBMC_USER_HOME):
+        if os.path.exists('%s/userdata/addon_data/service.libreelec.settings' % XBMC_USER_HOME):
+            shutil.copytree(('%s/userdata/addon_data/service.libreelec.settings' % XBMC_USER_HOME),
+                    ('%s/userdata/addon_data/service.coreelec.settings' % XBMC_USER_HOME))
             with open(configFile,'r+') as f:
                 xml = f.read()
-                xml = xml.replace("<openelec>","<libreelec>")
-                xml = xml.replace("</openelec>","</libreelec>")
+                xml = xml.replace("<libreelec>","<coreelec>")
+                xml = xml.replace("</libreelec>","</coreelec>")
                 f.seek(0)
                 f.write(xml)
                 f.truncate()
         else:
-            os.makedirs('%s/userdata/addon_data/service.libreelec.settings' % XBMC_USER_HOME)
+            os.makedirs('%s/userdata/addon_data/service.coreelec.settings' % XBMC_USER_HOME)
     if not os.path.exists('%s/services' % CONFIG_CACHE):
         os.makedirs('%s/services' % CONFIG_CACHE)
 except:
