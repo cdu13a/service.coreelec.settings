@@ -62,7 +62,7 @@ system = {
     'KERNEL_CMD': '/proc/cmdline',
     'SET_CLOCK_CMD': '/sbin/hwclock --systohc --utc',
     'UPDATE_REQUEST_URL': 'https://update.coreelec.org/updates.php',
-    'UPDATE_DOWNLOAD_URL': 'http://%s.coreelec.org/%s',
+    'UPDATE_DOWNLOAD_URL': 'https://%s/%s/%s',
     'LOCAL_UPDATE_DIR': '/storage/.update/',
     'XBMC_RESET_FILE': '%s/reset_xbmc' % CONFIG_CACHE,
     'COREELEC_RESET_FILE': '%s/reset_oe' % CONFIG_CACHE,
