@@ -382,9 +382,22 @@ class system:
             return self.get_hardware_flags_x86_64()
         elif self.oe.ARCHITECTURE.startswith('RPi') or self.oe.ARCHITECTURE.startswith('Slice'):
             return self.get_hardware_flags_rpi()
+        elif self.oe.PROJECT.startswith('Amlogic'):
+            return self.get_device_tree_id()
         else:
             self.oe.dbg_log('system::get_hardware_flags', 'Architecture is %s, no hardware flag available' % self.oe.ARCHITECTURE, 0)
             return ""
+
+    def get_device_tree_id(self):
+        if os.path.exists('/proc/device-tree/ce-dt-id'):
+            dtid = self.oe.load_file('/proc/device-tree/ce-dt-id').rstrip('\x00')
+        elif os.path.exists('/proc/device-tree/le-dt-id'):
+            dtid = self.oe.load_file('/proc/device-tree/le-dt-id').rstrip('\x00')
+        else:
+            dtid = 'unknown'
+        self.oe.dbg_log('system::get_device_tree_id', 'dtid: %s' % dtid, 0)
+
+        return dtid
 
     def load_values(self):
         try:
