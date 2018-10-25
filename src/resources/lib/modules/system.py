@@ -1074,6 +1074,13 @@ class system:
             self.oe.dbg_log('system::do_send_logs', 'enter_function', 0)
 
             self.oe.execute('echo "%s log output for: $(lsb_release)" > /storage/.kodi/temp/paste.tmp' % log_type)
+            self.oe.execute('echo "Device Tree: %s" >> /storage/.kodi/temp/paste.tmp' % self.get_device_tree_id())
+            if self.oe.BUILDER_VERSION:
+                version = self.oe.BUILDER_VERSION
+            else:
+                version = self.oe.VERSION
+            self.oe.execute('echo "Version: %s" >> /storage/.kodi/temp/paste.tmp' % version)
+            self.oe.execute('echo "Distro: %s" >> /storage/.kodi/temp/paste.tmp' % self.oe.DISTRIBUTION)
 
             if self.oe.ARCHITECTURE.endswith('.x86_64'):
                 if os.path.exists('/sys/firmware/efi'):
@@ -1081,6 +1088,8 @@ class system:
                 else:
                     self.oe.execute('echo "Firmware Boot Mode: BIOS" >> /storage/.kodi/temp/paste.tmp')
 
+            self.cat_file('/storage/.kodi/temp/paste.tmp', '/flash/boot.ini') # KVIM/KVIM2/ODROIDC2
+            self.cat_file('/storage/.kodi/temp/paste.tmp', '/flash/config.ini') # KVIM/KVIM2/ODROIDC2
             self.cat_file('/storage/.kodi/temp/paste.tmp', '/flash/config.txt') # RPi
             self.cat_file('/storage/.kodi/temp/paste.tmp', '/flash/cmdline.txt') # RPi
             self.cat_file('/storage/.kodi/temp/paste.tmp', '/flash/syslinux.cfg') # x86 BIOS
@@ -1090,11 +1099,18 @@ class system:
             self.cat_file('/storage/.kodi/temp/paste.tmp', '%s/temp/%s' % (kodi_root, kodi_log))
             self.oe.execute('journalctl -a > /storage/.kodi/temp/journalctl.txt')
             self.cat_file('/storage/.kodi/temp/paste.tmp', '/storage/.kodi/temp/journalctl.txt', 'journalctl -a')
+            self.oe.execute('lsusb > /storage/.kodi/temp/lsusb.txt')
+            self.cat_file('/storage/.kodi/temp/paste.tmp', '/storage/.kodi/temp/lsusb.txt', 'lsusb')
+            self.oe.execute('lsmod > /storage/.kodi/temp/lsmod.txt')
+            self.cat_file('/storage/.kodi/temp/paste.tmp', '/storage/.kodi/temp/lsmod.txt', 'lsmod')
+            self.cat_file('/storage/.kodi/temp/paste.tmp', '/sys/class/amhdmitx/amhdmitx0/edid', 'edid')
             self.cat_file('/storage/.kodi/temp/paste.tmp', '%s/.smb/smb.conf' % kodi_root)
             self.cat_file('/storage/.kodi/temp/paste.tmp', '%s/.smb/user.conf' % kodi_root)
             self.cat_file('/storage/.kodi/temp/paste.tmp', '/run/samba/smb.conf')
             self.do_pastebin()
             os.remove('/storage/.kodi/temp/journalctl.txt')
+            os.remove('/storage/.kodi/temp/lsusb.txt')
+            os.remove('/storage/.kodi/temp/lsmod.txt')
             os.remove('/storage/.kodi/temp/paste.tmp')
             self.oe.dbg_log('system::do_send_logs', 'exit_function', 0)
         except Exception, e:
